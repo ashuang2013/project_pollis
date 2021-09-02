@@ -16,3 +16,7 @@
 /moddedQuadIndex.class
 /naturalTerrainDictionary.class
 /naturalTerrainDictionaryDriver.class
+/CombatMap.class
+/CombatMapTest.class
+/CombatMapTest$listen.class
+/CombatMap$Listener.class

@@ -11,6 +11,26 @@ public class NPC
    private int state=0;
    private String[] Diologue;
 
+   //WORK IN PROGRESS
+   private int hp;
+   private int atk;
+   private int pdef;
+   private int mdef;
+   private int spd;
+   private int mana;
+   private int skills; //for later
+   
+   /*
+    * BRAINSTORMING COMBAT
+    * 
+    * Each character that goes into combat needs certain stats (right now decided hp, attack, defense, speed, mana and skills). Each character's stats can 
+    * then be augmented with gear that should be equipped during inventory. 
+    * 
+    * Hp (health points) is the character's health or damage that can be taken before they are killed. Atk (attack) is how much the character does per attack. 
+    * Def (def) is how much damage the character mitigates (will split between magic and physical damage). Spd (speed/agility) determines who goes first in a combat
+    * encounter and should increase chances to hit and crit chance and damage. Mana is the pool that will decrease with successive casts of spells. Skills are the 
+    * spells that will be case
+    */
    public NPC(int r, int c, String x, ImageIcon a)
    {   
       col=c;
@@ -65,6 +85,32 @@ public class NPC
       return Character;
    }
    
+   //////////////////////////////////////////////////////////////////////////////////////////////////////
+   //WORK IN PROGRESS
+   
+  public int getHp() {
+	  return hp;
+  }
+  
+  public int getAttack() {
+	  return atk;
+  }
+  
+  public int getPDefense() {
+	  return pdef;
+  }
+  
+  public int getMDefense() {
+	  return mdef;
+  }
+  
+  public int getSpeed() {
+	  return spd;
+  }
+
+  public int getMana() {
+	  return mana;
+  }
  
 
 }
