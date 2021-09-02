@@ -11,7 +11,7 @@ public class CombatMap  extends JPanel {
 	private NPC[] party;
 	private NPC[] enemies;
 	private int[][] location;
-	private int SIZE = 40;
+	private int SIZE = 100;
 	
 	private naturalTerrainDictionary dict = new naturalTerrainDictionary();
 	/*
@@ -24,7 +24,7 @@ public class CombatMap  extends JPanel {
 	public CombatMap(NPC[] p, NPC[] e) {
 		party = p;
 		enemies = e;
-		location = new int[4][8];
+		location = new int[8][16];
 	    //repaint();
 	}
 	
@@ -32,7 +32,7 @@ public class CombatMap  extends JPanel {
 	 * Starts the map that will house the combat
 	 */
 	public void start() {
-		//
+		//TODO: implement
 	}
 	
 	/*

@@ -20,3 +20,7 @@
 /CombatMapTest.class
 /CombatMapTest$listen.class
 /CombatMap$Listener.class
+/Weapon.class
+/Weapon$WeaponType.class
+/BasicSword.class
+/BareHand.class

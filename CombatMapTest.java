@@ -13,8 +13,9 @@
    
       public static void main(String[]args)
       {
-    	 NPC[] party = {new NPC(0, 0, "Party 1", new ImageIcon("TutorialTom.png"))};
-    	 NPC[] enemy = {new NPC(3, 3, "Enemy 1", new ImageIcon("TutorialTom.png"))};
+    	 NPC[] party = {new NPC(0, 0, "Party 1", new ImageIcon("Childe Pull.png")), new NPC(1, 0, "Party 2", new ImageIcon("Albedo Pull 12-24.png")), 
+    			 new NPC(2, 0, "Party 3", new ImageIcon("Xiao Pull 12-27.jpg")), new NPC(3, 0, "Party 4", new ImageIcon("Zhongli Pull 4-28.png"))};
+    	 NPC[] enemy = {new NPC(3, 3, "Enemy 1", new ImageIcon("Childe Pull.png"))};
     	 
          screen = new CombatMap(party, enemy);
          JFrame frame = new JFrame("Arrays Represented in Graphics with Keyboard Input");	//window title
