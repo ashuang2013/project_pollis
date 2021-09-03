@@ -1,3 +1,5 @@
+package generation;
+
 import java.io.*;
 
 public class QuadDriver
@@ -19,7 +21,7 @@ public class QuadDriver
       t.add(new Story("3", intArray, 13)); //parent node
       t.add(new Story("4", intArray, 14)); //parent node
    
-   
+      /*
       System.out.println(t);  //should be: [A, B, D, R, S, T, W, Y]
       t.showPreOrder();       //should be: R A B D S W T Y
       t.showInOrder();        //should be: A B D R S T W Y
@@ -33,6 +35,7 @@ public class QuadDriver
       t.showInOrder();        //should be: B D R S T W
       t.showPostOrder();      //should be: D B T W S R
       extraInfo(t);           //should be: There are 6 nodes, the tree is of height 3
-      System.out.println(t);  //should be: [B, D, R, S, T, W]*/
+      System.out.println(t);  //should be: [B, D, R, S, T, W]
+      */
    }
 }

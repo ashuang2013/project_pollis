@@ -1,8 +1,12 @@
+package generation;
+
 import javax.swing.JPanel;
-   import javax.swing.ImageIcon;
-   import java.awt.Graphics;
-   import java.awt.Color;
-   import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+
+import generation.naturalTerrainDictionary;
 
 /*
  * Author: Alex Huang

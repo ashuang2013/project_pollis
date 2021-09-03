@@ -1,3 +1,5 @@
+package generation;
+
 import javax.swing.*;
 import java.awt.Graphics;
 import java.awt.Color;
@@ -37,16 +39,16 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
    private static int provY;
    private int tSEC=0;
    private naturalTerrainDictionary a = new naturalTerrainDictionary();
-   private Player MainCharacter= new Player(0,0, "Helios", new ImageIcon("TutorialTed.png"));
+   private Player MainCharacter= new Player(0,0, "Helios", new ImageIcon("src/generation/TutorialTed.png"));
  
  ////////////////////////////////////////////////////////////////////////////////////////////////
-   private NPC NPC_Beta_A= new NPC(1,1, "Jake", new ImageIcon("TestNPC.png"));
-   private NPC NPC_Beta_B= new NPC(1,1, "Elwood", new ImageIcon("TutorialTom.png"));
-   private NPC NPC_Beta_C= new NPC(2,5, "Richard", new ImageIcon("TutorialTom.png"));
+   private NPC NPC_Beta_A= new NPC(1,1, "Jake", new ImageIcon("src/generation/TestNPC.png"));
+   private NPC NPC_Beta_B= new NPC(1,1, "Elwood", new ImageIcon("src/generation/TutorialTom.png"));
+   private NPC NPC_Beta_C= new NPC(2,5, "Richard", new ImageIcon("src/generation/TutorialTom.png"));
 
-   private NPC NPC_Beta_D= new NPC(3,3, "Bill", new ImageIcon("TestNPC.png"));
-   private NPC NPC_Beta_E= new NPC(4,4, "Jill", new ImageIcon("TutorialTom.png"));
-   private NPC NPC_Beta_F= new NPC(2,9, "Phil", new ImageIcon("TutorialTom.png"));
+   private NPC NPC_Beta_D= new NPC(3,3, "Bill", new ImageIcon("src/generation/TestNPC.png"));
+   private NPC NPC_Beta_E= new NPC(4,4, "Jill", new ImageIcon("src/generation/TutorialTom.png"));
+   private NPC NPC_Beta_F= new NPC(2,9, "Phil", new ImageIcon("src/generation/TutorialTom.png"));
          
    private NPC[] People={NPC_Beta_A,NPC_Beta_B,NPC_Beta_C};
    private NPC[] People2={NPC_Beta_D,NPC_Beta_E,NPC_Beta_F};

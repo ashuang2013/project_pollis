@@ -1,3 +1,5 @@
+package generation;
+
 interface moddedQuadIndex
 {
    int quadIndex=0;

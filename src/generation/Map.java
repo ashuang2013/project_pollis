@@ -1,3 +1,4 @@
+package generation;
 import javax.swing.*;
 
 public class Map  

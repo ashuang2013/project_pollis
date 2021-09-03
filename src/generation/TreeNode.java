@@ -1,3 +1,5 @@
+package generation;
+
 public class TreeNode
 {
    private Comparable value;  //can be any type of object that implements Comparable

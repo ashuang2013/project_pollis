@@ -1,4 +1,9 @@
+package generation;
+
 import javax.swing.*;
+
+import generation.BareHand;
+import generation.Weapon;
 
 public class NPC  
 {

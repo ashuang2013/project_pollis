@@ -1,3 +1,5 @@
+package generation;
+
 public class QuadNode
 {
    private moddedQuadIndex mQI;                                        //Comparable value

@@ -1,11 +1,15 @@
-   import javax.swing.JFrame;
-   import java.awt.event.KeyListener;
-   import java.awt.event.KeyEvent;
-   import javax.swing.*;
-   import java.awt.Graphics;
-   import java.awt.Color;
-   import java.awt.Font;
-   
+package generation;
+
+import javax.swing.JFrame;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+import javax.swing.*;
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Font;
+
+import generation.NPC;
+
    public class CombatMapTest								//Driver Program
    {
       public static CombatMap screen;					//Game window
@@ -13,9 +17,9 @@
    
       public static void main(String[]args)
       {
-    	 NPC[] party = {new NPC(0, 0, "Party 1", new ImageIcon("Childe Pull.png")), new NPC(1, 0, "Party 2", new ImageIcon("Albedo Pull 12-24.png")), 
-    			 new NPC(2, 0, "Party 3", new ImageIcon("Xiao Pull 12-27.jpg")), new NPC(3, 0, "Party 4", new ImageIcon("Zhongli Pull 4-28.png"))};
-    	 NPC[] enemy = {new NPC(3, 3, "Enemy 1", new ImageIcon("Childe Pull.png"))};
+    	 NPC[] party = {new NPC(0, 0, "Party 1", new ImageIcon("src/generation/Childe Pull.png")), new NPC(1, 0, "Party 2", new ImageIcon("src/generation/Albedo Pull 12-24.png")), 
+    			 new NPC(2, 0, "src/generation/Party 3", new ImageIcon("src/generation/Xiao Pull 12-27.jpg")), new NPC(3, 0, "Party 4", new ImageIcon("src/generation/Zhongli Pull 4-28.png"))};
+    	 NPC[] enemy = {new NPC(3, 3, "Enemy 1", new ImageIcon("src/generation/Childe Pull.png"))};
     	 
          screen = new CombatMap(party, enemy);
          JFrame frame = new JFrame("Arrays Represented in Graphics with Keyboard Input");	//window title
