@@ -1,4 +1,7 @@
-package generation;
+package generation.combat;
+
+import generation.combat.Weapon.WeaponType;
+
 /*
  * Author: Alex Huang
  */
@@ -37,5 +40,17 @@ public class BasicSword implements Weapon {
 	@Override
 	public Weapon.WeaponType getWeaponType() {
 		return WeaponType.Sword;
+	}
+
+	@Override
+	public String getDescription() {
+		// TODO Auto-generated method stub
+		return "A solid sword to accompany you on your adventures";
+	}
+
+	@Override
+	public Handed getHandedness() {
+		// TODO Auto-generated method stub
+		return Handed.One;
 	}
 }
