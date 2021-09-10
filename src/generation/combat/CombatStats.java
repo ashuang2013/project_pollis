@@ -35,4 +35,5 @@ public interface CombatStats {
 	public void setSkills(HashSet<Skill> sk);
 	
 	public String getDescription();
+	public String toString();
 }

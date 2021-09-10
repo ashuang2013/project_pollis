@@ -13,9 +13,9 @@ public class Berserker extends CombatNPC implements CombatStats {
 	private Weapon weapon;
 	private String name;
 	
-	public Berserker(int r, int c, ImageIcon i)
+	public Berserker(int r, int c, String n, ImageIcon i)
 	{   
-		super(r, c, i);
+		super(r, c, n, i);
 		super.setHealth(50);
 		super.setAttack(10);
 		super.setPhysicalDefense(20);
@@ -24,7 +24,11 @@ public class Berserker extends CombatNPC implements CombatStats {
 		super.setMana(100);
 		super.setSkills(null);
 		weapon = new BareHand();
-	}  
+	} 
+	
+	public String getName() {
+		return super.getName();
+	}
 	
 	public ImageIcon getImageIcon() {
 		return super.getImageIcon();
