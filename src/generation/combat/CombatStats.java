@@ -5,6 +5,8 @@ import java.util.HashSet;
 import javax.swing.ImageIcon;
 
 public interface CombatStats {
+	public enum Side {Enemy, Ally};
+	
 	public int getRow();
 	public void setRow(int r);
 	
@@ -36,4 +38,6 @@ public interface CombatStats {
 	
 	public String getDescription();
 	public String toString();
+	
+	public Side getSide();
 }

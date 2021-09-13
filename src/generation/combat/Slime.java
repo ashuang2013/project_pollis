@@ -8,8 +8,8 @@ import generation.NPC;
 
 public class Slime extends CombatNPC implements CombatStats {
 
-	public Slime(int r, int c, String n, ImageIcon i) {
-		super(r, c, n, i);
+	public Slime(int r, int c, String n, ImageIcon i, Side s) {
+		super(r, c, n, i, s);
 		super.setHealth(10);
 		super.setAttack(1);
 		super.setPhysicalDefense(10);
@@ -19,8 +19,8 @@ public class Slime extends CombatNPC implements CombatStats {
 		super.setSkills(null);
 	}
 	
-	public Slime(int r, int c, String n, ImageIcon i, int s) {
-		super(r, c, n, i);
+	public Slime(int r, int c, String n, ImageIcon i, Side sid, int s) {
+		super(r, c, n, i, sid);
 		super.setHealth(10);
 		super.setAttack(1);
 		super.setPhysicalDefense(10);

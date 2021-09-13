@@ -13,14 +13,14 @@ public class Berserker extends CombatNPC implements CombatStats {
 	private Weapon weapon;
 	private String name;
 	
-	public Berserker(int r, int c, String n, ImageIcon i)
+	public Berserker(int r, int c, String n, ImageIcon i, Side s)
 	{   
-		super(r, c, n, i);
+		super(r, c, n, i, s);
 		super.setHealth(50);
 		super.setAttack(10);
 		super.setPhysicalDefense(20);
 		super.setMagicDefense(20);
-		super.setSpeed(10); //action points (more turns), initiative, crit damage/crit rate
+		super.setSpeed(100); //action points (more turns), initiative, crit damage/crit rate
 		super.setMana(100);
 		super.setSkills(null);
 		weapon = new BareHand();
