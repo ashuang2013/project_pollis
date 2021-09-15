@@ -14,13 +14,21 @@ public class CombatNPC implements CombatStats {
 	private int mana;
 	private int spd;
 	
+	private Side side;
+	private String name;
 	private ImageIcon image;
 	private HashSet<Skill> skills;
 	
-	public CombatNPC(int r, int c, ImageIcon i) {
+	public CombatNPC(int r, int c, String n, ImageIcon i, Side s) {
 		row = r;
 		col = c;
 		image = i;
+		name = n;
+		side = s;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public int getRow() {
@@ -127,10 +135,17 @@ public class CombatNPC implements CombatStats {
 		skills = sk;
 	}
 
+	public Side getSide() {
+		return side;
+	}
+	
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	public String toString() {
+		return name + " currently has " + hp + " health and " + atk + " attack.";
+	}
 }

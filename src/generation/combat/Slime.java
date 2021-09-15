@@ -8,8 +8,8 @@ import generation.NPC;
 
 public class Slime extends CombatNPC implements CombatStats {
 
-	public Slime(int r, int c, ImageIcon i) {
-		super(r, c, i);
+	public Slime(int r, int c, String n, ImageIcon i, Side s) {
+		super(r, c, n, i, s);
 		super.setHealth(10);
 		super.setAttack(1);
 		super.setPhysicalDefense(10);
@@ -17,6 +17,21 @@ public class Slime extends CombatNPC implements CombatStats {
 		super.setSpeed(10); //action points (more turns), initiative, crit damage/crit rate
 		super.setMana(0);
 		super.setSkills(null);
+	}
+	
+	public Slime(int r, int c, String n, ImageIcon i, Side sid, int s) {
+		super(r, c, n, i, sid);
+		super.setHealth(10);
+		super.setAttack(1);
+		super.setPhysicalDefense(10);
+		super.setMagicDefense(10);
+		super.setSpeed(s); //action points (more turns), initiative, crit damage/crit rate
+		super.setMana(0);
+		super.setSkills(null);
+	}
+	
+	public String getName() {
+		return super.getName();
 	}
 	
 	public ImageIcon getImageIcon() {
@@ -106,7 +121,7 @@ public class Slime extends CombatNPC implements CombatStats {
 		// TODO Auto-generated method stub
 		super.setSkills(sk);
 	}
-
+	
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
