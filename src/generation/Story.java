@@ -1,3 +1,5 @@
+package generation;
+
 public class Story implements moddedQuadIndex
 {
    private String storyFileName;

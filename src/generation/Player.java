@@ -1,5 +1,6 @@
-import javax.swing.*;
+package generation;
 
+import javax.swing.*;
 
 public class Player  
 {

@@ -1,4 +1,10 @@
+package generation;
+
 import javax.swing.*;
+
+import generation.combat.BareHand;
+import generation.combat.CombatNPC;
+import generation.combat.Weapon;
 
 public class NPC  
 {
@@ -11,16 +17,8 @@ public class NPC
    private int state=0;
    private String[] Diologue;
 
-   //WORK IN PROGRESS
-   private int hp;
-   private int atk;
-   private int pdef;
-   private int mdef;
-   private int spd; //action points (more turns), initiative, crit damage/crit rate
-   private int mana;
-   private int skills; //for later
+   private CombatNPC cNPC;
    
-   private Weapon weapon;
    
    /*
     * BRAINSTORMING COMBAT
@@ -41,19 +39,13 @@ public class NPC
       Character=a;
    }  
    
-   public NPC(int r, int c, String x, ImageIcon img, int h, int a, int pd, int md, int s, int m)
+   public NPC(int r, int c, String x, ImageIcon img, CombatNPC combat)
    {   
       col=c;
       row=r;
       Name=x;
       Character=img;
-      hp = h;
-      atk = a;
-      pdef = pd;
-      mdef = md;
-      spd = s;
-      mana = m;
-      weapon = new BareHand();
+      cNPC=combat;
    }  
    
    public int getCol()//returns the col of the main character
@@ -102,67 +94,11 @@ public class NPC
    {
       return Character;
    }
-   
+   public CombatNPC getCombatCharacter()//Returns the image of a npc of the game
+   {
+      return cNPC;
+   }
    //////////////////////////////////////////////////////////////////////////////////////////////////////
    //WORK IN PROGRESS
    
-  public int getHp() {
-	  return hp;
-  }
-  
-  public int getAttack() {
-	  return atk;
-  }
-  
-  public int getPDefense() {
-	  return pdef;
-  }
-  
-  public int getMDefense() {
-	  return mdef;
-  }
-  
-  public int getSpeed() {
-	  return spd;
-  }
-
-  public int getMana() {
-	  return mana;
-  }
-  
-  public Weapon getWeapon() {
-	  return weapon;
-  }
-  
-  public int setHp() {
-	  return hp;
-  }
-  
-  public int setAttack() {
-	  return atk;
-  }
-  
-  public int setPDefense() {
-	  return pdef;
-  }
-  
-  public int setMDefense() {
-	  return mdef;
-  }
-  
-  public int setSpeed() {
-	  return spd;
-  }
-
-  public int setMana() {
-	  return mana;
-  }
- 
-  public Weapon setWeapon() {
-	  return weapon;
-  }
-  
-  public void updateCharacter() {
-	  //TODO: update with character stats, for example with equips, update so that the character stats reflect the damage instead of adding weapon damage onto it
-  }
 }

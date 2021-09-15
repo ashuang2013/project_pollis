@@ -1,3 +1,4 @@
+package generation;
 import javax.swing.JFrame;
 
 import java.awt.Toolkit; //Screen resolution
