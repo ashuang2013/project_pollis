@@ -25,12 +25,10 @@ import java.awt.event.ActionEvent;
 // ineed to make all Land tiles gif because they need transperancy. RIP
 public class PollisGrid extends JPanel implements MouseListener, MouseMotionListener
 {     
-   private static int location;			//start row for the player
-
    private static int[][] board;	
    private static int[][] panel;	
    private static final int DELAY=1000;	//#miliseconds delay between each time the enemy moves and screen refreshes for the timer
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
    private Timer t;							//used to set the speed of the program
    private int frame;
    private static int mouseX;			//locations for the mouse pointer
@@ -39,22 +37,11 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
    private static int provY;
    private int tSEC=0;
    private naturalTerrainDictionary a = new naturalTerrainDictionary();
-   private Player MainCharacter= new Player(0,0, "Helios", new ImageIcon("src/generation/TutorialTed.png"));
- 
- ////////////////////////////////////////////////////////////////////////////////////////////////
-   private NPC NPC_Beta_A= new NPC(1,1, "Jake", new ImageIcon("src/generation/TestNPC.png"));
-   private NPC NPC_Beta_B= new NPC(1,1, "Elwood", new ImageIcon("src/generation/TutorialTom.png"));
-   private NPC NPC_Beta_C= new NPC(2,5, "Richard", new ImageIcon("src/generation/TutorialTom.png"));
-
-   private NPC NPC_Beta_D= new NPC(3,3, "Bill", new ImageIcon("src/generation/TestNPC.png"));
-   private NPC NPC_Beta_E= new NPC(4,4, "Jill", new ImageIcon("src/generation/TutorialTom.png"));
-   private NPC NPC_Beta_F= new NPC(2,9, "Phil", new ImageIcon("src/generation/TutorialTom.png"));
-         
-   private NPC[] People={NPC_Beta_A,NPC_Beta_B,NPC_Beta_C};
-   private NPC[] People2={NPC_Beta_D,NPC_Beta_E,NPC_Beta_F};
-
+   private Player MainCharacter= new Player(0,0, "Helios", new ImageIcon("src/generation/TutorialTed.png")); 
+ ////////////////////////////////////////////////////////////////////////////////////////////////         
+   private NPC[] People= new NPC[6];
+   int currLocation=1;
    private Map Location1;
-   private Map Location2;
  ////////////////////////////////////////////////////////////////////////////////////////////////   
    private static int Zone=0;
    private static int diologue=-1;
@@ -72,11 +59,9 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
       t = new Timer(DELAY, new Listener());	
       frame = 0;			
       t.start();
-      
+      loadNPCSLocation(1);
       createLocation1();
       Location1 = new Map(People, board);
-      createLocation2();
-      Location2 = new Map(People2, board);
       for(int r=0; r<panel.length; r++)
       {
          for(int c=0; c<panel[r].length-1; c++)
@@ -87,8 +72,33 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
       
       
    }
+   public void loadNPCSLocation(int desiredLocation)
+   {
+	   //TODO: Updates File of NPC STATUS FROM PREV INPUT
+	   
+	   int index=0;
+	    try {
+	        File myObj = new File("src/generation/NPCs.txt");
+	        Scanner myReader = new Scanner(myObj);
+	        while (myReader.hasNextLine()) {
+	          String data = myReader.nextLine();
+	   	   	  String[] arrOfStr = data.split(",");
+	   	      People[index]=new NPC(Integer.parseInt(arrOfStr[0]), Integer.parseInt(arrOfStr[1]),arrOfStr[2],new ImageIcon(arrOfStr[3]));
+	   	      index++;
+	        }
+	        myReader.close();
+	      } catch (FileNotFoundException e) {
+	        System.out.println("An error occurred.");
+	        e.printStackTrace();
+	      }
+		   currLocation=desiredLocation;
+		   
+
+	    }
+	   //src/generation/
+   
    //Instantiates the world and the panel behind it
-   //go to BoardIndex.txt in order to learn which numbers are meant to represent what lands
+   //go to BoardIndex.txt in order to learn which numbers are meant to represent what land
    public void createLocation1()
    {
       int numRows = 10;
@@ -201,71 +211,6 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
    }
    
    /////////////////////////////////////////////
-   public void paintLocation2(Graphics g)
-   {
-      int x=0;
-      int y=0;
-      for(int r=0;r<panel.length;r++)
-      {
-         x=0;
-            			//reset the row distance
-         for(int c=0;c<panel[0].length;c++)
-         {
-            if(panel[r][c]==-1)
-            {
-               g.drawImage(a.findImage("Background").getImage(),x ,y , SIZE, SIZE, null);  //scaled image
-            }
-                    
-                       
-            x+=SIZE;
-               
-         }
-         y+=SIZE;
-            
-            
-      } 
-      x=0;
-      y=0;
-      for(int r=0;r<Location2.getBoard().length;r++)
-      {
-         x=0;
-            			//reset the row distance
-         for(int c=0;c<Location2.getBoard()[0].length;c++)
-         {
-            if(Location2.getBoard()[r][c]==1)
-            {
-               g.drawImage(a.findImage("Grass1").getImage(),x ,y , SIZE, SIZE, null);  //scaled image
-            }                  
-            else
-               if(Location2.getBoard()[r][c]==2)
-               {
-                  g.drawImage(a.findImage("BuildingFloor").getImage(),x ,y , SIZE, SIZE, null);  //scaled image
-               }  
-               else
-                  if(Location2.getBoard()[r][c]==3)
-                  {
-                     g.drawImage(a.findImage("BuildingWall").getImage(),x ,y , SIZE, SIZE, null);  //scaled image
-                  }      
-                  else
-                     if(Location2.getBoard()[r][c]==4)
-                     {
-                        g.drawImage(a.findImage("BuildingDoorOpened").getImage(),x ,y , SIZE, SIZE, null);  //scaled image
-                     }             
-            x+=SIZE;
-               
-         }
-         y+=SIZE;
-            
-            
-      } 
-      g.drawImage(MainCharacter.getImageIcon().getImage(),MainCharacter.getCol()*SIZE,MainCharacter.getRow()*SIZE , SIZE, SIZE, null);  //drawing the main character
-      
-      for(int i=0; i<Location2.getPeople().length;i++)
-      {
-         g.drawImage(Location2.getPeople()[i].getImageIcon().getImage(),Location2.getPeople()[i].getCol()*SIZE,Location2.getPeople()[i].getRow()*SIZE , SIZE, SIZE, null);  //drawing a test NPC
-      }
-   
-   }
 
    /////////////////////////////////
    public void showDiologueLocation1(Graphics g)
@@ -278,19 +223,7 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
          g.drawString("1) Left", 25, 950);
          g.drawString("2) Right", 25, 1000);         
       }
-      else if(diologue>=100)
-      {
-         
-         g.drawImage(Location2.getPeople()[diologue-100].getImageIcon().getImage(),0, 0 , SIZE*20, SIZE*20, null);  //scaled image
-         g.drawString("My name is "+Location2.getPeople()[diologue-100].getName()+"", 25, 850);  
-         g.drawString("Where do you want me to go?", 25, 900);
-         g.drawString("1) Left", 25, 950);
-         g.drawString("2) Right", 25, 1000);
-      
-      
-         
-      }
-   
+
       
    }
    public void showTitle(Graphics g)
@@ -309,8 +242,7 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
          {
             if(Zone==1)
                paintLocation1(g);//draw the board
-            else if(Zone==2)
-               paintLocation2(g);         
+   
          }
          else
          {
@@ -425,7 +357,7 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
             else if(diologue>=100)
             {
             
-               Location2.getPeople()[diologue-100].setLocation(0,0);
+               //Location2.getPeople()[diologue-100].setLocation(0,0);
                            
                diologue=-1;
             
@@ -444,7 +376,7 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
             }
             else if(diologue>=100)
             {
-               Location2.getPeople()[diologue-100].setLocation(9,9);
+              // Location2.getPeople()[diologue-100].setLocation(9,9);
             
                diologue=-1;
             
@@ -499,20 +431,7 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
       {
          int mouseR = (mouseY/SIZE);
          int mouseC = (mouseX/SIZE);
-         if(Zone==2)
-         {
-            for(int i=0; i<Location2.getPeople().length;i++)
-            {
-               if(mouseR==Location2.getPeople()[i].getRow()&&mouseC==Location2.getPeople()[i].getCol())//make a button
-               {
-                  diologue=i+100;
-               
-               }
-            
-            
-            }
-         }
-         else if(Zone==1)
+         if(Zone==1)
          {
             for(int i=0; i<Location1.getPeople().length;i++)
             {
@@ -576,10 +495,6 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
          for(int a= 0; a<Location1.getPeople().length; a++)
          {
             moveNPCS(Location1.getPeople()[a]);
-         }
-         for(int a= 0; a<Location2.getPeople().length; a++)
-         {
-            moveNPCS(Location2.getPeople()[a]);
          }
          ////////////////////////////////////////
          repaint();

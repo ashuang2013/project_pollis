@@ -1,1 +1,6 @@
-0 0 Name Image Location
+1,1,Jake,src/generation/TestNPC.png
+1,1,Elwood,src/generation/TutorialTom.png
+2,5,Richard,src/generation/TutorialTom.png
+3,3,Bill,src/generation/TestNPC.png
+4,4,Jill,src/generation/TutorialTom.png
+2,9,Phil,src/generation/TutorialTom.png
