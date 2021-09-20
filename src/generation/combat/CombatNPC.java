@@ -13,6 +13,7 @@ public class CombatNPC implements CombatStats {
 	private int mdef;
 	private int mana;
 	private int spd;
+	private int range;
 	
 	private Side side;
 	private String name;
@@ -147,5 +148,17 @@ public class CombatNPC implements CombatStats {
 	
 	public String toString() {
 		return name + " currently has " + hp + " health and " + atk + " attack.";
+	}
+
+	@Override
+	public int getRange() {
+		// TODO Auto-generated method stub
+		return range;
+	}
+
+	@Override
+	public void setRange(int ran) {
+		// TODO Auto-generated method stub
+		range = ran;
 	}
 }

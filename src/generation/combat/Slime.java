@@ -16,6 +16,7 @@ public class Slime extends CombatNPC implements CombatStats {
 		super.setMagicDefense(10);
 		super.setSpeed(10); //action points (more turns), initiative, crit damage/crit rate
 		super.setMana(0);
+		super.setRange(5);
 		super.setSkills(null);
 	}
 	
@@ -27,6 +28,7 @@ public class Slime extends CombatNPC implements CombatStats {
 		super.setMagicDefense(10);
 		super.setSpeed(s); //action points (more turns), initiative, crit damage/crit rate
 		super.setMana(0);
+		super.setRange(5);
 		super.setSkills(null);
 	}
 	
@@ -120,6 +122,18 @@ public class Slime extends CombatNPC implements CombatStats {
 	public void setSkills(HashSet<Skill> sk) {
 		// TODO Auto-generated method stub
 		super.setSkills(sk);
+	}
+	
+	@Override
+	public int getRange() {
+		// TODO Auto-generated method stub
+		return super.getRange();
+	}
+
+	@Override
+	public void setRange(int ran) {
+		// TODO Auto-generated method stub
+		super.setRange(ran);
 	}
 	
 	@Override

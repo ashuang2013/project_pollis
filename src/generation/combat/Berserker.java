@@ -22,6 +22,7 @@ public class Berserker extends CombatNPC implements CombatStats {
 		super.setMagicDefense(20);
 		super.setSpeed(100); //action points (more turns), initiative, crit damage/crit rate
 		super.setMana(100);
+		super.setRange(10);
 		super.setSkills(null);
 		weapon = new BareHand();
 	} 
@@ -118,6 +119,18 @@ public class Berserker extends CombatNPC implements CombatStats {
 		super.setSkills(sk);
 	}
 
+	@Override
+	public int getRange() {
+		// TODO Auto-generated method stub
+		return super.getRange();
+	}
+
+	@Override
+	public void setRange(int ran) {
+		// TODO Auto-generated method stub
+		super.setRange(ran);
+	}
+	
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
