@@ -10,15 +10,14 @@ public class BasicSword implements Weapon {
 	private final int ATTACK = 5;
 	private final int CRATE = 0;
 	private final int CDAMAGE = 0;
-	private final int RANGE = 50;
+	private final int RANGE = 5;
 	
 	public BasicSword() {
 		
 	}
 	
 	@Override
-	public int getDamage() {
-		// TODO implement augments
+	public int getAttack() {
 		return ATTACK;
 	}
 
@@ -44,13 +43,11 @@ public class BasicSword implements Weapon {
 
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
 		return "A solid sword to accompany you on your adventures";
 	}
 
 	@Override
 	public Handed getHandedness() {
-		// TODO Auto-generated method stub
 		return Handed.One;
 	}
 }

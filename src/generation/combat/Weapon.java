@@ -11,7 +11,7 @@ public interface Weapon {
 		One, Two, Base, Equip
 	}
 	
-	public int getDamage();
+	public int getAttack();
 
 	public int getCritRate();
 	public int getCritDamage();	
@@ -21,5 +21,4 @@ public interface Weapon {
 	public Handed getHandedness();
 	
 	public String getDescription();
-	
 }

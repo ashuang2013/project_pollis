@@ -54,85 +54,71 @@ public class CombatNPC implements CombatStats {
 	
 	@Override
 	public int getHealth() {
-		// TODO Auto-generated method stub
 		return hp;
 	}
 
 	@Override
 	public void setHealth(int h) {
-		// TODO Auto-generated method stub
 		this.hp = h;
 	}
 
 	@Override
 	public int getAttack() {
-		// TODO Auto-generated method stub
 		return atk;
 	}
 
 	@Override
 	public void setAttack(int a) {
-		// TODO Auto-generated method stub
 		atk = a;
 	}
 
 	@Override
 	public int getPhysicalDefense() {
-		// TODO Auto-generated method stub
 		return pdef;
 	}
 
 	@Override
 	public void setPhysicalDefense(int pd) {
-		// TODO Auto-generated method stub
 		pdef = pd;
 	}
 
 	@Override
 	public int getMagicDefense() {
-		// TODO Auto-generated method stub
 		return mdef;
 	}
 
 	@Override
 	public void setMagicDefense(int md) {
-		// TODO Auto-generated method stub
 		mdef = md;
 	}
 
 	@Override
 	public int getSpeed() {
-		// TODO Auto-generated method stub
 		return spd;
 	}
 
 	@Override
 	public void setSpeed(int s) {
-		// TODO Auto-generated method stub
 		spd = s;
 	}
 
 	@Override
 	public int getMana() {
-		// TODO Auto-generated method stub
 		return mana;
 	}
 
 	@Override
 	public void setMana(int m) {
-		// TODO Auto-generated method stub
 		mana = m;
 	}
 
 	@Override
 	public HashSet<Skill> getSkills() {
-		// TODO Auto-generated method stub
 		return skills;
 	}
 
 	@Override
 	public void setSkills(HashSet<Skill> sk) {
-		// TODO Auto-generated method stub
 		skills = sk;
 	}
 
@@ -142,7 +128,6 @@ public class CombatNPC implements CombatStats {
 	
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -152,13 +137,11 @@ public class CombatNPC implements CombatStats {
 
 	@Override
 	public int getRange() {
-		// TODO Auto-generated method stub
 		return range;
 	}
 
 	@Override
 	public void setRange(int ran) {
-		// TODO Auto-generated method stub
 		range = ran;
 	}
 }

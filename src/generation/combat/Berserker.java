@@ -16,15 +16,15 @@ public class Berserker extends CombatNPC implements CombatStats {
 	public Berserker(int r, int c, String n, ImageIcon i, Side s)
 	{   
 		super(r, c, n, i, s);
+		weapon = new BareHand();
 		super.setHealth(50);
-		super.setAttack(10);
+		super.setAttack(10 + weapon.getAttack());
 		super.setPhysicalDefense(20);
 		super.setMagicDefense(20);
-		super.setSpeed(100); //action points (more turns), initiative, crit damage/crit rate
+		super.setSpeed(100); //TODO: action points (more turns), initiative, crit damage/crit rate
 		super.setMana(100);
-		super.setRange(10);
+		super.setRange(weapon.getRange());
 		super.setSkills(null);
-		weapon = new BareHand();
 	} 
 	
 	public String getName() {
@@ -37,103 +37,91 @@ public class Berserker extends CombatNPC implements CombatStats {
 	
 	@Override
 	public int getHealth() {
-		// TODO Auto-generated method stub
 		return super.getHealth();
 	}
 
 	@Override
 	public void setHealth(int h) {
-		// TODO Auto-generated method stub
 		super.setHealth(h);
 	}
 
 	@Override
 	public int getAttack() {
-		// TODO Auto-generated method stub
-		return super.getAttack();
+		int random = (int)(Math.random()*100);
+		
+		if(random < weapon.getCritRate())
+			return super.getAttack()*weapon.getCritDamage();
+		else 
+			return super.getAttack();
 	}
 
 	@Override
 	public void setAttack(int a) {
-		// TODO Auto-generated method stub
 		super.setAttack(a);
 	}
 
 	@Override
 	public int getPhysicalDefense() {
-		// TODO Auto-generated method stub
 		return super.getPhysicalDefense();
 	}
 
 	@Override
 	public void setPhysicalDefense(int pd) {
-		// TODO Auto-generated method stub
 		super.setPhysicalDefense(pd);
 	}
 
 	@Override
 	public int getMagicDefense() {
-		// TODO Auto-generated method stub
 		return super.getMagicDefense();
 	}
 
 	@Override
 	public void setMagicDefense(int md) {
-		// TODO Auto-generated method stub
 		super.setMagicDefense(md);
 	}
 
 	@Override
 	public int getSpeed() {
-		// TODO Auto-generated method stub
 		return super.getSpeed();
 	}
 
 	@Override
 	public void setSpeed(int s) {
-		// TODO Auto-generated method stub
 		super.setSpeed(s);
 	}
 
 	@Override
 	public int getMana() {
-		// TODO Auto-generated method stub
 		return super.getMana();
 	}
 
 	@Override
 	public void setMana(int m) {
-		// TODO Auto-generated method stub
 		super.setMana(m);
 	}
 
 	@Override
 	public HashSet<Skill> getSkills() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setSkills(HashSet<Skill> sk) {
-		// TODO Auto-generated method stub
 		super.setSkills(sk);
 	}
 
 	@Override
 	public int getRange() {
-		// TODO Auto-generated method stub
 		return super.getRange();
 	}
 
 	@Override
 	public void setRange(int ran) {
-		// TODO Auto-generated method stub
 		super.setRange(ran);
 	}
 	
 	@Override
 	public String getDescription() {
-		// TODO Auto-generated method stub
 		return "A fierce warrior raised in the cold grasslands to the North.";
 	}
 	

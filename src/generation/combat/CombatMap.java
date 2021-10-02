@@ -11,6 +11,7 @@ import java.util.Scanner;
 import generation.NPC;
 import generation.naturalTerrainDictionary;
 import generation.combat.CombatStats;
+import generation.combat.CombatStats.Side;
 
 /*
  * Author: Alex Huang
@@ -40,19 +41,20 @@ public class CombatMap  extends JPanel {
 	/*
 	 * Starts the map that will house the combat
 	 */
-	public void start() {	
+	public void start() {
 		short numEnemies = (short)enemies.size();
 		short numAllies = (short)party.size();
 
 		ArrayList<CombatNPC> init = initiative(party, enemies);
-		CombatNPC player = init.get(init.size()-1);
-		int index = init.size()-1;
+		int index = 0;
+		CombatNPC player = init.get(index);
+
 
 		while(numEnemies != 0 && numAllies != 0) {
 			if(init.get(index).getSide() == CombatStats.Side.Ally) { //party member
 				short playerChoice = printMenu(init.get(index));
 
-				if(playerChoice <= 0 && playerChoice > 3) {
+				if(playerChoice <= 0 && playerChoice > 4) {
 					System.out.println("Please choose a valid command...");
 					playerChoice = printMenu(init.get(index));
 				}
@@ -68,7 +70,7 @@ public class CombatMap  extends JPanel {
 				if(playerChoice == 2) { //party member attacks
 					short playerAttack;
 					System.out.println("Who does " + init.get(index).getName() + " want to attack?");
-					ArrayList<CombatNPC> attackable = attackRange(init.get(index));
+					ArrayList<CombatNPC> attackable = attackRange(init.get(index), Side.Ally);
 					
 					if(attackable.size() == 0) {
 						System.out.println("You are not in range to attack anyone!");
@@ -83,34 +85,46 @@ public class CombatMap  extends JPanel {
 
 					//USER INPUT FOR ATTACKING
 					playerAttack = (short)sc.nextInt();
-					if(playerAttack < 0 && playerAttack >= enemies.size()) {
+					while(playerAttack < 0 && playerAttack >= enemies.size()) {
 						System.out.println("Please choose a valid enemy...");
 						playerAttack = (short)sc.nextInt();
 					}
+					
+					for(int i=0; i<enemies.size(); i++) {
+						//TODO: implement aoe later
+						if(attackable.get(playerAttack-1).getName().equals(enemies.get(i).getName())) { //names will never be shared
+							//CALCULATE THE DAMAGE ON THE CHOSEN ENEMY
+							damageCalculationEnemy(init.get(index), enemies.get(i), null);
 
-					//CALCULATE THE DAMAGE ON THE CHOSEN ENEMY
-					damageCalculationEnemy(init.get(index), enemies.get(playerAttack-1), null);
-
-					//REMOVE DEFEATED ALLIES
-					if(enemies.get(playerAttack-1).getHealth() <= 0) { //defeated enemy
-						enemies.remove(playerAttack-1);
+							//REMOVE DEFEATED ENEMIES
+							if(enemies.get(i).getHealth() <= 0) {
+								enemies.remove(i);
+							}
+						}
 					}
 				}
 			}
 			else { //enemy
 				//TODO: implement AI later
-				ArrayList<CombatNPC> attackable = attackRange(init.get(index));
+				//TODO: implement range detection for enemies
+				ArrayList<CombatNPC> attackable = attackRange(init.get(index), Side.Enemy);
 				
 				if(attackable.size() == 0) {
-					System.out.println("You are not in range to attack anyone!");
-					continue; //TODO: test this
+					System.out.println(init.get(index).getName() + " is not in range to attack anyone!");
+					if(index == init.size()-1) {
+						index = 0;
+					}
+					else {
+						index++; 
+					} //TODO: only a bandaid fix
+					continue;
 				}
 				
 				int rand = (int)(Math.random()*party.size());
 				//System.out.println(init.get(index).getName() + " attacks " + init.get(rand).getName() + " dealing " + init.get(index).getAttack() + " damage!");
 
 				//calculate damage
-				damageCalculationAlly(enemies.get(index), party.get(rand), null);
+				damageCalculationAlly(init.get(index), party.get(rand), null);
 
 				if(party.get(rand).getHealth() <= 0) { //defeated ally
 					party.remove(rand);
@@ -118,19 +132,20 @@ public class CombatMap  extends JPanel {
 			}
 
 			//UPDATE THE INDEX IN INITIATIVE
-			if(index == 0) {
-				index = init.size()-1;
+			if(index == init.size()-1) {
+				index = 0;
 			}
 			else {
-				index--; 
+				index++; 
 			}
 
 			player = init.get(index); //next player
 			numEnemies = (short)enemies.size();
 			numAllies = (short)party.size();
-
+			
+			//combine the two lists to consolidate information
 			init = initiative(party, enemies);
-
+			
 			for(int i=0; i<init.size(); i++) {
 				if(init.get(i) == player) {
 					index = i;
@@ -186,27 +201,21 @@ public class CombatMap  extends JPanel {
 		return init;
 	}
 
-	/*
-	 * Insertion sort copied from Geeks for Geeks website: https://www.geeksforgeeks.org/insertion-sort/
-	 */
 	public ArrayList<CombatNPC> sort(ArrayList<CombatNPC> arr)
 	{
-		int s = arr.size();
-
-		for(int i = 1; i < s; i++) {
-			CombatNPC key = arr.get(i); //grab the current speed
+		int size = arr.size();
+		for (int i = 1; i < size; i++) {
+			CombatNPC key = arr.get(i);
 			int j = i - 1;
-
-			/* Move elements of arr[0..i-1], that are
-               greater than key, to one position ahead
-               of their current position */
-			while (j >= 0 && arr.get(j).getSpeed() > key.getSpeed()) {
+			
+			while (j >= 0 && key.getSpeed() > arr.get(j).getSpeed()) {
+				// For ascending order, change key> arr[j] to key< arr[j].
 				arr.set(j+1, arr.get(j));
-				j = j - 1;
+				j--;
 			}
 			arr.set(j+1, key);
 		}
-
+		
 		return arr;
 	}
 
@@ -241,22 +250,32 @@ public class CombatMap  extends JPanel {
 	/*
 	 * Returns the enemies that can be attacked by the given NPC
 	 */
-	public ArrayList<CombatNPC> attackRange(CombatNPC npc) {	
+	public ArrayList<CombatNPC> attackRange(CombatNPC npc, Side s) {	
 		int[] bounds = attackRangeHelper(npc);
 		ArrayList<CombatNPC> attackable = new ArrayList<CombatNPC>();
-
-		for(int i=0; i<enemies.size(); i++) { //for the sake of simplicity we will assume a perfect square instead of a circle for range detection
-			if(enemies.get(i).getCol() >= bounds[0] && 
-					enemies.get(i).getCol() <= bounds[1] &&
-					enemies.get(i).getRow() >= bounds[2] &&
-					enemies.get(i).getRow() <= bounds[3]) { //if the enemy is within these bounds, then we can attack them
-				attackable.add(enemies.get(i));
+		
+		if(s == Side.Ally) {
+			for(int i=0; i<enemies.size(); i++) { //for the sake of simplicity we will assume a perfect square instead of a circle for range detection
+				if(enemies.get(i).getCol() >= bounds[0] && 
+						enemies.get(i).getCol() <= bounds[1] &&
+						enemies.get(i).getRow() >= bounds[2] &&
+						enemies.get(i).getRow() <= bounds[3]) { //if the enemy is within these bounds, then we can attack them
+					attackable.add(enemies.get(i));
+				}
 			}
 		}
-		
-		for(int i=0; i<attackable.size(); i++) {
-			System.out.println(attackable.get(i).getName());
+		else {
+			for(int i=0; i<party.size(); i++) { //for the sake of simplicity we will assume a perfect square instead of a circle for range detection
+				if(party.get(i).getCol() >= bounds[0] && 
+						party.get(i).getCol() <= bounds[1] &&
+						party.get(i).getRow() >= bounds[2] &&
+						party.get(i).getRow() <= bounds[3]) { //if the enemy is within these bounds, then we can attack them
+					attackable.add(party.get(i));
+				}
+			}
 		}
+
+		
 		return attackable;
 	}
 
@@ -276,9 +295,6 @@ public class CombatMap  extends JPanel {
 		//DOWN BOUND
 		bound[3] = npc.getRow() + range > location.length ? location.length-1 : npc.getRow() + range;
 		
-		for(int i=0; i<bound.length; i++) {
-			System.out.println(bound[i]);
-		}
 		return bound;
 	}
 	
