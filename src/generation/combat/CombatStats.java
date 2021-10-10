@@ -43,5 +43,7 @@ public interface CombatStats {
 	public String getDescription();
 	public String toString();
 	
+	public void setWeapon(Weapon w);
+	
 	public Side getSide();
 }

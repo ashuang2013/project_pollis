@@ -24,7 +24,7 @@ import generation.combat.Slime;
     	 ArrayList<CombatNPC> party = new ArrayList<CombatNPC>();
     	 ArrayList<CombatNPC> enemy = new ArrayList<CombatNPC>();
     	 
-    	 party.add(new Berserker(0, 2, "Ragnorak", new ImageIcon("src/generation/Childe Pull.png"), CombatStats.Side.Ally)); 
+    	 party.add(new Berserker(1, 2, "Ragnorak", new ImageIcon("src/generation/Childe Pull.png"), CombatStats.Side.Ally)); 
     	 enemy.add(new Slime(0, 3, "Slime 13", new ImageIcon("src/generation/Electro Slime.png"), CombatStats.Side.Enemy, 13));
     	 enemy.add(new Slime(1, 3, "Slime 20", new ImageIcon("src/generation/Electro Slime.png"), CombatStats.Side.Enemy, 20));
     	 enemy.add(new Slime(2, 3, "Slime 11", new ImageIcon("src/generation/Electro Slime.png"), CombatStats.Side.Enemy, 11));

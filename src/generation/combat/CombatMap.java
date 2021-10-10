@@ -29,7 +29,6 @@ public class CombatMap  extends JPanel {
 	 * include the protagonist's party vs the enemies fought. Some other examples include the overall how the map will be 
 	 * structured (map layout along with texture). The CombatMap will also take responsibility for executing and determining
 	 * the order for combat that will occur.
-	 * TODO: implement range?
 	 */
 	public CombatMap(ArrayList<CombatNPC> p, ArrayList<CombatNPC> e) {
 		party = p;
@@ -47,7 +46,7 @@ public class CombatMap  extends JPanel {
 
 		ArrayList<CombatNPC> init = initiative(party, enemies);
 		int index = 0;
-		CombatNPC player = init.get(index);
+		CombatNPC player = init.get(index); //TODO: this is never used should use it
 
 
 		while(numEnemies != 0 && numAllies != 0) {
@@ -103,10 +102,14 @@ public class CombatMap  extends JPanel {
 						}
 					}
 				}
+				
+				if(playerChoice == 4) { //TODO: implement Weapon equipping
+					Excalibur e = new Excalibur();
+					player.setWeapon(e);
+				}
 			}
 			else { //enemy
 				//TODO: implement AI later
-				//TODO: implement range detection for enemies
 				ArrayList<CombatNPC> attackable = attackRange(init.get(index), Side.Enemy);
 				
 				if(attackable.size() == 0) {

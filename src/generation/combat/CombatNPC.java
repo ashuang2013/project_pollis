@@ -17,8 +17,10 @@ public class CombatNPC implements CombatStats {
 	
 	private Side side;
 	private String name;
+	private Weapon weapon;
 	private ImageIcon image;
 	private HashSet<Skill> skills;
+	
 	
 	public CombatNPC(int r, int c, String n, ImageIcon i, Side s) {
 		row = r;
@@ -59,7 +61,7 @@ public class CombatNPC implements CombatStats {
 
 	@Override
 	public void setHealth(int h) {
-		this.hp = h;
+		hp = h;
 	}
 
 	@Override
@@ -143,5 +145,13 @@ public class CombatNPC implements CombatStats {
 	@Override
 	public void setRange(int ran) {
 		range = ran;
+	}
+	
+	public Weapon getWeapon() {
+		return weapon;
+	}
+	
+	public void setWeapon(Weapon w) {
+		weapon = w;
 	}
 }

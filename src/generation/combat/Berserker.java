@@ -50,7 +50,7 @@ public class Berserker extends CombatNPC implements CombatStats {
 		int random = (int)(Math.random()*100);
 		
 		if(random < weapon.getCritRate())
-			return super.getAttack()*weapon.getCritDamage();
+			return super.getAttack()*weapon.getCritDamage()/100;
 		else 
 			return super.getAttack();
 	}
@@ -125,19 +125,22 @@ public class Berserker extends CombatNPC implements CombatStats {
 		return "A fierce warrior raised in the cold grasslands to the North.";
 	}
 	
-	/*
-	public void equipWeapon(Weapon w) {
+	public Weapon getWeapon() {
+		return super.getWeapon();
+	}
+	
+	public void setWeapon(Weapon w) {
 		if(w.getWeaponType() == WeaponType.Sword) {
 			weapon = w;
-		}
-		else if(skills.contains("Dual Wielding")) {
-			weapon = w;
+			super.setWeapon(w);
+			super.setAttack(10 + weapon.getAttack());
+			System.out.println("The total attack of berserker is : " + super.getAttack());
+			super.setRange(weapon.getRange());
 		}
 		else {
 			System.out.println("Unable to equip weapon, the Berserker can only use a sword.");
 		}
 	}
-	*/
 	
 	public void deequipWeapon() {
 		weapon = new BareHand();
