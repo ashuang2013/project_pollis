@@ -21,7 +21,7 @@ public class Berserker extends CombatNPC implements CombatStats {
 		super.setAttack(10 + weapon.getAttack());
 		super.setPhysicalDefense(20);
 		super.setMagicDefense(20);
-		super.setSpeed(100); //TODO: action points (more turns), initiative, crit damage/crit rate
+		super.setSpeed(50); //TODO: action points (more turns), initiative, crit damage/crit rate
 		super.setMana(100);
 		super.setRange(weapon.getRange());
 		super.setSkills(null);

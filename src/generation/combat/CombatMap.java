@@ -61,9 +61,18 @@ public class CombatMap  extends JPanel {
 				if(playerChoice == 1) { //party member moves
 					System.out.println("Please input the space that you would like to move.");
 					int x = sc.nextInt(), y = sc.nextInt();
-					//TODO: set player movement range cap
-					init.get(index).setRow(x);
-					init.get(index).setRow(y);
+					int[] bounds = movementRangeHelper(player);
+					
+					if(y >= bounds[0] && y <= bounds[1] &&
+							x >= bounds[2] && x <= bounds[3]) {
+						player.setRow(x);
+						player.setCol(y);
+						System.out.println("Accepted: the current position of npc is: " + player.getRow() + " " + player.getCol());
+					}
+					else {
+						System.out.println("The selected position is not valid to move to. Please choose a valid position to move to.");
+						continue;
+					}
 				}
 				
 				if(playerChoice == 2) { //party member attacks
@@ -119,7 +128,7 @@ public class CombatMap  extends JPanel {
 					}
 					else {
 						index++; 
-					} //TODO: only a bandaid fix
+					} //TODO: only a bandaid fix, ultimately make another move or move somewhere
 					continue;
 				}
 				
@@ -298,6 +307,25 @@ public class CombatMap  extends JPanel {
 		//DOWN BOUND
 		bound[3] = npc.getRow() + range > location.length ? location.length-1 : npc.getRow() + range;
 		
+		return bound;
+	}
+	
+	/*
+	 * Will calculate and return the bounds that the given npc can move
+	 */
+	public int[] movementRangeHelper(CombatNPC npc) {
+		int[] bound = new int[4]; //left, right, up, down
+		int spd = npc.getSpeed()/CombatStats.SIZE;
+
+		//LEFT BOUND
+		bound[0] = npc.getCol() - spd < 0 ? 0 : npc.getCol() - spd;
+		//RIGHT BOUND
+		bound[1] = npc.getCol() + spd > location[0].length ? location[0].length-1 : npc.getCol() + spd;
+		//UP BOUND
+		bound[2] = npc.getRow() - spd < 0 ? 0 : npc.getRow() - spd;
+		//DOWN BOUND
+		bound[3] = npc.getRow() + spd > location.length ? location.length-1 : npc.getRow() + spd;
+
 		return bound;
 	}
 	
