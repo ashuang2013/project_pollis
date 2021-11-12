@@ -30,7 +30,10 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
    private static final int DELAY=1000;	//#miliseconds delay between each time the enemy moves and screen refreshes for the timer
 /////////////////////////////////////////////////////////////////////////////////////////////////
    private Timer t;							//used to set the speed of the program
-   private int frame;
+   private static long lastFrame=0;
+   private static int currentFrame=0;
+   private static int totalFrame=0;
+
    private static int mouseX;			//locations for the mouse pointer
    private static int mouseY;
    private static int provX;
@@ -56,7 +59,6 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
       mouseX = 0;//#####
       mouseY = 0;//#####
       t = new Timer(DELAY, new Listener());	
-      frame = 0;			
       t.start();
       loadNPCSandLocation(1);
       for(int r=0; r<panel.length; r++)
@@ -81,11 +83,25 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
 	        while (myReader.hasNextLine()) {
 	          String data = myReader.nextLine();
 	   	   	  String[] arrOfStr = data.split(",");
-	   	      People[index]=new NPC(Integer.parseInt(arrOfStr[0]), Integer.parseInt(arrOfStr[1]),arrOfStr[2],new ImageIcon(arrOfStr[3]));
+	   	      People[index]=new NPC(Integer.parseInt(arrOfStr[0]), Integer.parseInt(arrOfStr[1]),arrOfStr[2],new ImageIcon("src/generation/"+arrOfStr[3]));
 	   	      index++;
 	        }
 	        myReader.close();
-	      } catch (FileNotFoundException e) {
+	        for(int i = 0; i<People.length;i++)
+	        {
+	        String nameOfNPC=People[i].getName();
+	    	File obj2 = new File("src/generation/"+nameOfNPC+".txt");
+	        Scanner myReader2 = new Scanner(obj2);
+	        
+	        while (myReader2.hasNextLine()) {
+	          String data = myReader2.nextLine();
+	   	   	  String[] arrOfStr = data.split(",");
+	   	      People[i].setDiologue(arrOfStr);
+	        }
+	        myReader2.close();
+	        }
+	    }
+	    catch (FileNotFoundException e) {
 	        System.out.println("NPC ERROR");
 	        e.printStackTrace();
 	      }
@@ -174,7 +190,8 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
       {
          g.drawImage(People[i].getImageIcon().getImage(),People[i].getCol()*SIZE,People[i].getRow()*SIZE , SIZE, SIZE, null);  //drawing a test NPC
       }
-   
+     // g.setColor(Color.BLACK);
+     // g.drawString(String.valueOf(currentFrame),  25, 1000);
    }
    
    /////////////////////////////////////////////
@@ -186,7 +203,7 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
          g.drawImage(People[DialogueIndex].getImageIcon().getImage(),0, 0 , SIZE*20, SIZE*20, null);  //scaled image
          //PRINT THE NPC AT INDEX DIOLOGUE, and their lines
          g.drawString("My name is "+People[DialogueIndex].getName()+"", 25, 850);
-         g.drawString("Where do you want me to go?", 25, 900);
+         g.drawString(People[DialogueIndex].getDiologue()[0], 25, 900);
          g.drawString("1) Left", 25, 950);
          g.drawString("2) Right", 25, 1000);         
       
@@ -399,12 +416,19 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
    }
    
    
-   
+
    private class Listener implements ActionListener
    {
       public void actionPerformed(ActionEvent e)	//this is called for each timer iteration
       {
-         tSEC++;//tracks how long the game has been running (in seconds)
+         tSEC++;//tracks how long the game has been running (in seconds)  
+       //  totalFrame++;
+       //  if(System.nanoTime()>lastFrame+1000000000)
+        // {
+        	// lastFrame= System.nanoTime();
+        	// currentFrame= totalFrame;
+        	// totalFrame=0;
+        // }
          for(int a= 0; a<People.length; a++)
          {
             moveNPCS(People[a]);

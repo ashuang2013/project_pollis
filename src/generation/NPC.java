@@ -81,6 +81,16 @@ public class NPC
       return intendedRow;
    
    }
+   public String[] getDiologue()
+   {
+      return Diologue;
+   
+   }
+   public void setDiologue(String[] abc)
+   {
+	   Diologue= abc;
+   
+   }
    public void setLocation(int x, int y)//gives the ability to alter the player's horizontal position by a factor of x(Most common use of this method should be to change poistion by (+ or -) 1)
    {
       intendedCol=x;

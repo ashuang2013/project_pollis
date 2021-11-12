@@ -1,6 +1,6 @@
-1,1,Jake,src/generation/TestNPC.png
-1,1,Elwood,src/generation/TutorialTom.png
-2,5,Richard,src/generation/TutorialTom.png
-3,3,Bill,src/generation/TestNPC.png
-4,4,Jill,src/generation/TutorialTom.png
-2,9,Phil,src/generation/TutorialTom.png
+1,1,Jake,TestNPC.png
+1,1,Elwood,TutorialTom.png
+2,5,Richard,TutorialTom.png
+3,3,Chiron,TestNPC.png
+4,4,Jill,TutorialTom.png
+2,9,Phil,TutorialTom.png
