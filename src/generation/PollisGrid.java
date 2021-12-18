@@ -104,6 +104,7 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
 	          if(myReader2.hasNext())
 	          {
 	          String sep = myReader2.nextLine();
+	          
 	          }
 	        }
 	   	    People[i].setDiologue(Diologue);
