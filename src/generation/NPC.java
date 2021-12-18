@@ -1,7 +1,7 @@
 package generation;
 
 import javax.swing.*;
-
+import java.util.*;
 import generation.combat.BareHand;
 import generation.combat.CombatNPC;
 import generation.combat.Weapon;
@@ -15,8 +15,9 @@ public class NPC
    private int intendedRow;
    private ImageIcon Character;
    private int state=0;
-   private String[] Diologue;
-
+   private ArrayList<ArrayList<DiologueNode>> Diologue= new ArrayList<ArrayList<DiologueNode>>(5);
+   private Queue<ArrayList<DiologueNode>> ConvoStack= new LinkedList();
+   
    private CombatNPC cNPC;
    
    
@@ -81,15 +82,22 @@ public class NPC
       return intendedRow;
    
    }
-   public String[] getDiologue()
+   public ArrayList<DiologueNode> getDiologue()
    {
-      return Diologue;
+	   ArrayList<DiologueNode> Default = new ArrayList<DiologueNode>();
+	   Default.add(new DiologueNode("I have nothing for ya","a","b","s","d"));
+	   if(ConvoStack.size()==0)
+		   return Default;
+      return ConvoStack.remove();
    
    }
-   public void setDiologue(String[] abc)
+   public void setDiologue(ArrayList<DiologueNode> abc)
    {
-	   Diologue= abc;
-   
+	   Diologue.add(abc);   
+   }
+   public void TriggerDiologue(int i)
+   {
+	   ConvoStack.add(Diologue.remove(i));   
    }
    public void setLocation(int x, int y)//gives the ability to alter the player's horizontal position by a factor of x(Most common use of this method should be to change poistion by (+ or -) 1)
    {

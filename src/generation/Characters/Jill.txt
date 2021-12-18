@@ -1,0 +1,12 @@
+HELLLO BORTHER
+K) Hello
+U) Hola
+H) Konichiwa
+S) Ni Hao
+----
+HELLLO BORTHER
+K) Hello
+U) Hola
+H) Konichiwa
+S) Ni Hao
+----

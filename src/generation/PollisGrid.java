@@ -40,7 +40,7 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
    private static int provY;
    private int tSEC=0;
    private naturalTerrainDictionary a = new naturalTerrainDictionary();
-   private Player MainCharacter= new Player(0,0, "Helios", new ImageIcon("src/generation/TutorialTed.png")); 
+   private Player MainCharacter= new Player(0,0, "Helios", new ImageIcon("src/generation/CharacterImage/TutorialTed.png")); 
  ////////////////////////////////////////////////////////////////////////////////////////////////         
    private NPC[] People= new NPC[6];
    int currLocation=1;
@@ -48,7 +48,7 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
    private static String State="Start Menu";//"Start Menu", "Game", "Dialogue"
    private static int DialogueIndex=-1;
 
-   private static final int SIZE=40;	//size of cell being drawn change to 40 when done
+   private static final int SIZE=80;	//size of cell being drawn change to 40 when done
 
 //////////////Collection of images used for program
 
@@ -60,7 +60,7 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
       mouseY = 0;//#####
       t = new Timer(DELAY, new Listener());	
       t.start();
-      loadNPCSandLocation(1);
+      loadNPCSandLocation();
       for(int r=0; r<panel.length; r++)
       {
          for(int c=0; c<panel[r].length-1; c++)
@@ -70,34 +70,43 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
       }
       
    }
-   public void loadNPCSandLocation(int desiredLocation)
+   public void loadNPCSandLocation()
    {
 	   //TODO: Updates File of NPC STATUS FROM PREV INPUT
 	   
-	   if(desiredLocation==1)
-	   {
+	  
 	    try {
 	 	   int index=0;
-	    	File myObj = new File("src/generation/NPCs.txt");
+	    	File myObj = new File("src/generation/Maps/NPCs"+currLocation +".txt");
 	        Scanner myReader = new Scanner(myObj);
+	        People= new NPC[Integer.parseInt(myReader.nextLine())];
 	        while (myReader.hasNextLine()) {
 	          String data = myReader.nextLine();
 	   	   	  String[] arrOfStr = data.split(",");
-	   	      People[index]=new NPC(Integer.parseInt(arrOfStr[0]), Integer.parseInt(arrOfStr[1]),arrOfStr[2],new ImageIcon("src/generation/"+arrOfStr[3]));
+	   	      People[index]=new NPC(Integer.parseInt(arrOfStr[0]), Integer.parseInt(arrOfStr[1]),arrOfStr[2],new ImageIcon("src/generation/CharacterImage/"+arrOfStr[3]));
 	   	      index++;
 	        }
 	        myReader.close();
 	        for(int i = 0; i<People.length;i++)
 	        {
 	        String nameOfNPC=People[i].getName();
-	    	File obj2 = new File("src/generation/"+nameOfNPC+".txt");
+	    	File obj2 = new File("src/generation/Characters/"+nameOfNPC+".txt");
 	        Scanner myReader2 = new Scanner(obj2);
-	        
+	        ArrayList<DiologueNode> Diologue= new ArrayList<DiologueNode>();
 	        while (myReader2.hasNextLine()) {
-	          String data = myReader2.nextLine();
-	   	   	  String[] arrOfStr = data.split(",");
-	   	      People[i].setDiologue(arrOfStr);
+	          String data = myReader2.nextLine();	          
+	          String c1 = myReader2.nextLine();
+	          String c2 = myReader2.nextLine();
+	          String c3 = myReader2.nextLine();
+	          String c4 = myReader2.nextLine();
+	          DiologueNode temp= new DiologueNode(data,c1,c2,c3,c4);
+	          Diologue.add(temp);
+	          if(myReader2.hasNext())
+	          {
+	          String sep = myReader2.nextLine();
+	          }
 	        }
+	   	    People[i].setDiologue(Diologue);
 	        myReader2.close();
 	        }
 	    }
@@ -107,7 +116,7 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
 	      }
 	    try {
 	 	   int index=0;
-	        File myObj = new File("src/generation/Location.txt");
+	        File myObj = new File("src/generation/Maps/Location"+currLocation+".txt");
 	        Scanner myReader = new Scanner(myObj);
 	        while (myReader.hasNextLine()) {
 	          String data = myReader.nextLine();
@@ -124,12 +133,11 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
 	        e.printStackTrace();
 	      }
 	    
-		   currLocation=desiredLocation;
 		   
 
 	    
 	   }
-   }
+   
    
 
    //Instantiates the world and the panel behind it
@@ -201,13 +209,8 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
    {
 
          g.drawImage(People[DialogueIndex].getImageIcon().getImage(),0, 0 , SIZE*20, SIZE*20, null);  //scaled image
-         //PRINT THE NPC AT INDEX DIOLOGUE, and their lines
-         g.drawString("My name is "+People[DialogueIndex].getName()+"", 25, 850);
-         g.drawString(People[DialogueIndex].getDiologue()[0], 25, 900);
-         g.drawString("1) Left", 25, 950);
-         g.drawString("2) Right", 25, 1000);         
-      
-
+         g.drawString(People[DialogueIndex].getName()+"", 25, 500);
+         People[DialogueIndex].getDiologue().get(0).Read(g);
       
    }
    public void showBoard(Graphics g)//this is where all the graphics in the game take place, they are all printed in this showBoard method	
@@ -313,15 +316,18 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
          }
          else if(k==49)//1
          {
-	    	People[DialogueIndex].setLocation(0,0);             
-	    	DialogueIndex=-1;
+        	 currLocation=1;
+        	DialogueIndex=-1;
        	 	State="Game";
+       	 loadNPCSandLocation();
          }
          else if(k==50)//2
          {
-        	 People[DialogueIndex].setLocation(9,9);                
+        	 currLocation=2;                
         	 DialogueIndex=-1;
         	 State="Game";
+           	 loadNPCSandLocation();
+
          }
          }
       repaint();			//refresh the screen
@@ -433,6 +439,7 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
          {
             moveNPCS(People[a]);
          }
+         
          ////////////////////////////////////////
          repaint();
       }

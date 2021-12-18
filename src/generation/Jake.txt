@@ -1,5 +1,0 @@
-HELLLO BORTHER
-1) Hello
-2) GELLo
-3) MWLLOQ
-4) Malloc
