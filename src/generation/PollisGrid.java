@@ -92,8 +92,11 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
 	        String nameOfNPC=People[i].getName();
 	    	File obj2 = new File("src/generation/Characters/"+nameOfNPC+".txt");
 	        Scanner myReader2 = new Scanner(obj2);
+	        
 	        ArrayList<DiologueNode> Diologue= new ArrayList<DiologueNode>();
+       	    index=0;
 	        while (myReader2.hasNextLine()) {
+	        	
 	          String data = myReader2.nextLine();	          
 	          String c1 = myReader2.nextLine();
 	          String c2 = myReader2.nextLine();
@@ -104,11 +107,18 @@ public class PollisGrid extends JPanel implements MouseListener, MouseMotionList
 	          if(myReader2.hasNext())
 	          {
 	          String sep = myReader2.nextLine();
+	          if(sep.equals("###"))
+	          {
+	        	 index++;
+	          }
 	          
 	          }
 	        }
 	   	    People[i].setDiologue(Diologue);
 	        myReader2.close();
+	        
+	        
+	        
 	        }
 	    }
 	    catch (FileNotFoundException e) {
